@@ -1,0 +1,13 @@
+<!--miniprogram/pages/scaleList/scaleList.wxml-->
+<view class="wrap">
+    <view class="menu_wrap">
+        <view class="menu">全部</view>
+        <view class="menu">已测</view>
+    </view>
+    <view class="item">
+        <image src="http://img.pyyx.com/54efe9b6acc0a9eea2811efee5a3eeb97f6699845c52d5c4e6392.png" class="cover"></image>
+        <view class="sum">25题</view>
+        <view class="title">两节课两节课</view>
+        <view class="profile">看了空间离开了；看看</view>
+    </view>
+</view>

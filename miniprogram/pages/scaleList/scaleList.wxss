@@ -1,0 +1,24 @@
+/* miniprogram/pages/scaleList/scaleList.wxss */
+.wrap{
+    color:#727883;
+}
+.menu_wrap {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 15rpx;
+    box-sizing: border-box;
+    background: #fff;
+    font-size: 32rpx;
+}
+.item{
+    background: #fff;
+    box-sizing: border-box;
+    padding: 30rpx;
+
+}
+.cover{
+    width: 690rpx;
+    height: 450rpx;
+}
