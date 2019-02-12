@@ -1,0 +1,32 @@
+/* miniprogram/pages/question/question.wxss */
+.wrap{
+    padding: 30rpx;
+    background-color: #fff;
+}
+.progress_wrap{
+    display: flex;
+    align-items: center;
+}
+.progress_bar{
+    flex: 1;
+}
+.step{
+    margin-left: 30rpx;
+    font-size: 30rpx;
+    color: #888;
+}
+.question{
+    padding: 30rpx;
+}
+.aswers{
+    padding: 0 30rpx;
+}
+.answer{
+    display: flex;
+    align-items: center;
+    padding-bottom: 10rpx;
+}
+.icon{
+    display: inline-block;
+    margin-right: 10rpx;
+}

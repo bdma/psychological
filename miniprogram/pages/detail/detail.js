@@ -1,4 +1,4 @@
-// miniprogram/pages/scaleList/scaleList.js
+// miniprogram/pages/detail/detail.js
 Page({
 
   /**
@@ -26,18 +26,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'db',
-      // 传给云函数的参数
-      data: {
-      },
-      success(res) {
-        console.log(res.result) // 3
-      },
-      fail: console.error
-    })
-    
+
   },
 
   /**
@@ -74,8 +63,8 @@ Page({
   onShareAppMessage: function () {
 
   },
-  goDetail(){
-    let url='/pages/detail/detail'
+  goQuestion(){
+    let url='/pages/question/question'
     wx.navigateTo({
       url:url
     })

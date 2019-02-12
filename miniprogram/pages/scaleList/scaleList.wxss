@@ -12,6 +12,10 @@
     background: #fff;
     font-size: 32rpx;
 }
+.menu{
+    padding:0 16rpx 10rpx;
+
+}
 .item{
     background: #fff;
     box-sizing: border-box;
@@ -21,4 +25,29 @@
 .cover{
     width: 690rpx;
     height: 450rpx;
+    border: 1rpx solid #f00;
+}
+.img_wrap{
+    position: relative;
+    border: 1rpx solid #0f0;
+    overflow: hidden;
+}
+.sum{
+    position: absolute;
+    bottom: 20rpx;
+    right: 30rpx;
+    font-size: 34rpx;
+}
+.title{
+    color: #000;
+    font-size: 38rpx;
+    font-weight: 500;
+}
+.profile{
+    font-size: 34rpx;
+}
+.seleted{
+    color:#1aad19;
+   
+    border-bottom: 4rpx solid #1aad19;
 }
