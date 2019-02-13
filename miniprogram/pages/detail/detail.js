@@ -5,26 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    question:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // let id=options.id
+    let id=1
+    this.getData(id)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
 
   },
@@ -67,6 +59,28 @@ Page({
     let url='/pages/question/question'
     wx.navigateTo({
       url:url
+    })
+  },
+  getData(id) {
+    let that = this
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'db',
+      // 传给云函数的参数
+      data: {
+        param:{
+          scale_id:id
+        }
+      },
+      fail: console.error,
+      success(res) {
+        console.log(res.result) // 3
+        that.setData({
+          question: res.result
+        })
+
+      }
+
     })
   }
 })

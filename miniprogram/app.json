@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/scaleList/scaleList",
-    "pages/question/question",
     "pages/detail/detail",
+    "pages/question/question",
+    "pages/scaleList/scaleList",
     "pages/index/index"
   ],
   "window": {

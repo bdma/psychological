@@ -6,16 +6,17 @@ cloud.init()
 const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return await db.collection('tables').get()
+  // return await db.collection('tables').get()
   // const wxContext = cloud.getWXContext()
-  // let tablesDb = db.collection('tables')
-  // let tables = db.collection('tables').get()
-  // return {
-  //   tablesDb: tablesDb,
-  //   tables: tables,
-  //   event,
-  //   openid: wxContext.OPENID,
-  //   appid: wxContext.APPID,
-  //   unionid: wxContext.UNIONID,
-  // }
+  let cltName = event.cltName || 'tables'
+  let param = event.param || {}
+  if (Object.keys(param).length > 0) {
+    param.scale_id = Number(param.scale_id)
+  }
+  let result = await db.collection(cltName).where(param).get()
+  if (Object.keys(param).length > 0) {
+    result = result.data[0]
+  }
+  // result.param = param
+  return result
 }
