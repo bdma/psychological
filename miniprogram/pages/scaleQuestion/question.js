@@ -60,9 +60,9 @@ Page({
     selectArr.push(score)
     this.setData({
       selectAnswerIndex: index,
-      answerArr: selectArr
+      answerArr: selectArr //储存所选答案
     })
-
+    // 显示下一题
     setTimeout(() => {
       that.setData({
         selectAnswerIndex: -1,
@@ -73,6 +73,9 @@ Page({
     }, 200);
 
 
+  },
+  upAnswer(){
+    
   }
 
 })
