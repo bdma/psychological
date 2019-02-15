@@ -10,6 +10,6 @@
     <view class="profile">
             {{question.profile}}
     </view>
-    <button class="btn" catchtap="goQuestion">开始测试</button>
+    <button class="btn" data-id="{{question.scale_id}}" catchtap="goQuestion">开始测试</button>
 </view>
  
