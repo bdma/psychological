@@ -10,7 +10,7 @@ Page({
 
   onShow: function () {
     this.getData()
-
+    // this.getUser()
   },
 
   /**
@@ -50,5 +50,25 @@ Page({
       }
 
     })
+  },
+  getUser(){
+    let that = this
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'login',
+      // 传给云函数的参数
+      data: {
+      },
+      fail: console.error,
+      success(res) {
+        console.log(res.result) // 3
+        // that.setData({
+        //   tables: res.result.data
+        // })
+
+      }
+
+    })
   }
+
 })
