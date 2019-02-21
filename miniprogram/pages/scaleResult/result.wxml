@@ -1,0 +1,9 @@
+<!--miniprogram/pages/scaleResult/result.wxml-->
+<view class="wrap">
+    <view class="score">{{score}}</view>
+    <view class="">
+        Todo：图像显示 得分范围，分层
+        历次测试得分
+        加入信效时间，如少1分钟的不记录
+    </view>
+</view>

@@ -64,24 +64,13 @@ Page({
     })
     console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length)
     if (that.data.curQuestionIndex + 1 == that.data.questions.length) {
-      function sum(arr) {
-        let s = 0;
-        for (let i = arr.length - 1; i >= 0; i--) {
-          s += arr[i];
-        }
-        return s;
-      }
-      let scaleSum = sum(selectArr)
-      this.setData({
-        scaleSum
+      let score = this.sum(selectArr)
+      console.log("score:", score)
+      url = '/pages/scaleResult/result?score=' + score
+      // console.log(id)
+      wx.navigateTo({
+        url: url
       })
-      wx.showToast({
-        title: "得分：" + scaleSum,
-        icon: 'success',
-        duration: 2000
-      }
-      )
-      console.log("scaleSum:", scaleSum)
     }
     // 显示下一题
     setTimeout(() => {
@@ -95,27 +84,13 @@ Page({
 
 
   },
-  upAnswer() {
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'dbGet',
-      // 传给云函数的参数
-      data: {
-        param: {
-          scale_id: id
-        }
-      },
-      fail: console.error,
-      success(res) {
-        console.log(res.result) // 3
-        that.setData({
-          questions: res.result.questions,
-          percent: (that.data.curQuestionIndex + 1) * 100 / res.result.questions.length
-        })
-
-      }
-
-    })
+  sum(arr) {
+    let s = 0;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      s += arr[i];
+    }
+    return Math.round(s * 1.25);
   }
+  
 
 })
