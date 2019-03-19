@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/scaleList/list",
     "pages/scaleResult/result",
     "pages/scaleQuestion/question",
-    "pages/scaleList/list",
     "pages/scaleDetail/detail",
     "pages/index/index"
   ],

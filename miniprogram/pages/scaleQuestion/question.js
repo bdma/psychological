@@ -66,7 +66,7 @@ Page({
     if (that.data.curQuestionIndex + 1 == that.data.questions.length) {
       let score = this.sum(selectArr)
       console.log("score:", score)
-      url = '/pages/scaleResult/result?score=' + score
+      let url = '/pages/scaleResult/result?score=' + score
       // console.log(id)
       wx.navigateTo({
         url: url
@@ -91,6 +91,6 @@ Page({
     }
     return Math.round(s * 1.25);
   }
-  
+
 
 })

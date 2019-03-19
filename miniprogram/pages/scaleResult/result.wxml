@@ -1,6 +1,13 @@
 <!--miniprogram/pages/scaleResult/result.wxml-->
 <view class="wrap">
-    <view class="score">{{score}}</view>
+    <view class="title">结果</view>
+    <view class="score">
+        {{score}}
+    </view>
+    <view class="title">说明</view>
+    <view class="score">
+            {{score}}
+        </view>
     <view class="">
         Todo：图像显示 得分范围，分层
         历次测试得分

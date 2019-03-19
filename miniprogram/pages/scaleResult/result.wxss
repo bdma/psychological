@@ -1,1 +1,15 @@
 /* miniprogram/pages/scaleResult/result.wxss */
+.wrap{
+    padding: 24rpx;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+.title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1ba1f0;
+    margin-bottom: 15rpx;
+}
+.score{
+    margin-bottom: 40rpx;
+}

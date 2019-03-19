@@ -12,8 +12,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // let score=options.score
+    let score=88
     this.setData({
-      score:options.score
+      score
     })
   },
 
@@ -28,7 +30,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.upAnswer()
   },
 
   /**
@@ -66,22 +68,23 @@ Page({
 
   },
   upAnswer() {
+    
     wx.cloud.callFunction({
       // 云函数名称
-      name: 'dbGet',
+      name: 'dbUpdate',
       // 传给云函数的参数
       data: {
         param: {
-          scale_id: id
+          score:this.data.score
         }
       },
       fail: console.error,
       success(res) {
         console.log(res.result) // 3
-        that.setData({
-          questions: res.result.questions,
-          percent: (that.data.curQuestionIndex + 1) * 100 / res.result.questions.length
-        })
+        // that.setData({
+        //   questions: res.result.questions,
+        //   percent: (that.data.curQuestionIndex + 1) * 100 / res.result.questions.length
+        // })
 
       }
 
