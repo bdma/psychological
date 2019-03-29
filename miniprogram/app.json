@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/scaleList/list",
     "pages/scaleResult/result",
+    "pages/scaleList/list",
     "pages/scaleQuestion/question",
     "pages/scaleDetail/detail",
     "pages/index/index"

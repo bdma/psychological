@@ -13,78 +13,39 @@ Page({
    */
   onLoad: function (options) {
     // let score=options.score
-    let score=88
+    // let name = options.name
+    let name = ""
+    let score = 88
     this.setData({
-      score
+      score,
+      name
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     this.upAnswer()
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
   onShareAppMessage: function () {
 
   },
   upAnswer() {
-    
+
     wx.cloud.callFunction({
       // 云函数名称
       name: 'dbUpdate',
       // 传给云函数的参数
       data: {
         param: {
-          score:this.data.score
+          score: this.data.score,
+          name: this.data.name
+
         }
       },
       fail: console.error,
       success(res) {
-        console.log(res.result) // 3
-        // that.setData({
-        //   questions: res.result.questions,
-        //   percent: (that.data.curQuestionIndex + 1) * 100 / res.result.questions.length
-        // })
+        console.log(res) // 3
+
 
       }
 

@@ -45,6 +45,7 @@ Page({
       success(res) {
         console.log(res.result) // 3
         that.setData({
+          name: res.result.name,
           questions: res.result.questions,
           percent: (that.data.curQuestionIndex + 1) * 100 / res.result.questions.length
         })
@@ -66,7 +67,7 @@ Page({
     if (that.data.curQuestionIndex + 1 == that.data.questions.length) {
       let score = this.sum(selectArr)
       console.log("score:", score)
-      let url = '/pages/scaleResult/result?score=' + score
+      let url = '/pages/scaleResult/result?score=' + score + '&name=' + that.data.name
       // console.log(id)
       wx.navigateTo({
         url: url
