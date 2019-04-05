@@ -36,34 +36,46 @@ function time() {
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
+  const _ = db.command
   let cltName = 'users',
-    timeStr = time()
-  console.log("timeStr:", timeStr)
+    timeStr = time(),
+    scoreObj = {
+      time: timeStr
+    },
+    searchArr = []
 
-  return await db.collection(cltName).where({
+  Object.assign(scoreObj, event.param)
+  scores = [].concat(scoreObj)
+
+  console.log("timeStr scoreObj scores:", timeStr, scoreObj, scores)
+
+  await db.collection(cltName).where({
     openId: event.userInfo.openId
   }).get().then(res => {
-    // res.data 是包含以上定义的两条记录的数组
-    console.log("update:", res.data)
-    let scoreObj = {
-      name: event.param.name,
-      score: event.param.score,
-      time: timeStr
-    }
-    if (res.data.length) {
-      console.log("update res.data.length")
-
-    } else {
-      // let scores = [].push(scoreObj)
-      // await db.collection(cltName).add({
-      //   data: {
-      //     openId: event.userInfo.openId
-      //     // openId: "123"
-      //   }
-      // }).then(res => {
-      //   console.log(res)
-      // })
-    }
+    console.log("where get:", res.data)
+    searchArr = res.data
   })
+  if (searchArr.length) {
+    await db.collection(cltName).where({
+      openId: event.userInfo.openId
+    }).update({
+      data: {
+        scores: _.push(scoreObj)
+      }
+    }).then(res => {
+      console.log("update:", res)
+    })
+  } else {
+    // let scores = [].push(scoreObj)
+    console.log("add scores:", scores)
+    await db.collection(cltName).add({
+      data: {
+        openId: event.userInfo.openId,
+        scores: scores
+      }
+    }).then(res => {
+      console.log("add:", res)
+    })
+  }
 }
 

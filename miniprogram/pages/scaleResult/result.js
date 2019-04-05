@@ -12,13 +12,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let score=options.score
-    // let name = options.name
-    let name = ""
-    let score = 88
+    let score = options.score,
+      name = options.name,
+      take_time = options.take_time,
+      result_status = options.result_status.split('，')
+    // let name = "",
+    //   score = 88
     this.setData({
       score,
-      name
+      name,
+      take_time,
+      result_status
     })
   },
 
@@ -30,7 +34,6 @@ Page({
 
   },
   upAnswer() {
-
     wx.cloud.callFunction({
       // 云函数名称
       name: 'dbUpdate',
@@ -38,17 +41,14 @@ Page({
       data: {
         param: {
           score: this.data.score,
+          take_time: this.data.take_time,
           name: this.data.name
-
         }
       },
       fail: console.error,
       success(res) {
         console.log(res) // 3
-
-
       }
-
     })
   }
 })

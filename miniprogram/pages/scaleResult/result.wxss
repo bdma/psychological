@@ -13,3 +13,6 @@
 .score{
     margin-bottom: 40rpx;
 }
+.todo{
+    color: #f1f1f1
+}

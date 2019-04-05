@@ -13,6 +13,7 @@ exports.main = async (event, context) => {
   if (Object.keys(param).length > 0) {
     param.scale_id = Number(param.scale_id)
   }
+  console.log("param:", param)
   let result = await db.collection(cltName).where(param).get()
   if (Object.keys(param).length > 0) {
     result = result.data[0]

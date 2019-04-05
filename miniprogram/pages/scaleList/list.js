@@ -27,7 +27,7 @@ Page({
   goDetail(e) {
     let id = e.currentTarget.dataset.id,
     url = '/pages/scaleDetail/detail?id='+id
-    // console.log(id)
+    console.log(id)
     wx.navigateTo({
       url: url
     })
