@@ -1,7 +1,8 @@
 /* miniprogram/pages/scaleList/scaleList.wxss */
 
 .wrap {
-  color: #727883;
+  color: #616161;
+
 }
 
 .menu_wrap {
@@ -20,9 +21,14 @@
 }
 
 .item {
-  background: #fff;
+  width: 345px;
+  /* height: 201px; */
+  border-radius: 2rpx;
+  box-shadow: 0 0 54rpx 0 #dcdcdc;
+  background-color: #ffffff;
   box-sizing: border-box;
-  padding: 30rpx;
+  margin: 30rpx auto;
+  padding: 40rpx 30rpx 20rpx;
 }
 
 .cover {
@@ -31,33 +37,39 @@
   border: 1rpx solid #f00;
 }
 
-.img_wrap {
-  position: relative;
-  border: 1rpx solid #0f0;
-  overflow: hidden;
-}
 
-.sum {
-  position: absolute;
-  bottom: 20rpx;
-  right: 30rpx;
-  font-size: 34rpx;
-}
+
 
 .title {
-  color: #000;
+  color: #616161;
   font-size: 38rpx;
   font-weight: 500;
+  margin-bottom: 20rpx;
 }
-
 .profile {
-  font-size: 34rpx;
+  font-size: 30rpx;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
+  line-height: 46rpx;
+}
+.bar_wrap {
+  /* position: relative;
+  border: 1rpx solid #0f0; */
+  overflow: hidden;
 }
 
+.sum {
+  float:right;
+  padding: 2rpx 20rpx;
+  border-radius: 10rpx;
+  margin-top:20rpx;
+  font-size: 28rpx;
+  background-color: #afafaf;
+  color: #fff;
+
+}
 .seleted {
   color: #1aad19;
   border-bottom: 4rpx solid #1aad19;

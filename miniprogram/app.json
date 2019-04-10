@@ -7,9 +7,9 @@
     "pages/index/index"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
+    "backgroundColor": "#fff",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#6FC5FF",
+    "navigationBarBackgroundColor": "#6093EC",
     "navigationBarTitleText": "心理测量",
     "navigationBarTextStyle": "white"
   }

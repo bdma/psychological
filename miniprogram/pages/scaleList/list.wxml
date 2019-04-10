@@ -5,11 +5,11 @@
         <view class="menu">已测</view>
     </view>
     <view class="item" catchtap="goDetail" data-id="{{item.scale_id}}" wx:for="{{tables}}" wx:key="_id">
-        <view class="img_wrap">
-            <image src="http://img.pyyx.com/54efe9b6acc0a9eea2811efee5a3eeb97f6699845c52d5c4e6392.png" class="cover"></image>
-            <view class="sum">{{item.questions.length}}题</view>
-        </view>
         <view class="title">{{item.name}}</view>
         <view class="profile">{{item.profile}}</view>
+        <view class="bar_wrap">
+            <!-- <image src="http://img.pyyx.com/54efe9b6acc0a9eea2811efee5a3eeb97f6699845c52d5c4e6392.png" class="cover"></image> -->
+            <view class="sum">{{item.questions.length}}题</view>
+        </view>
     </view>
 </view>
