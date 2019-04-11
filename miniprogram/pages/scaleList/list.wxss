@@ -21,7 +21,7 @@
 }
 
 .item {
-  width: 345px;
+  width: 690rpx;
   /* height: 201px; */
   border-radius: 2rpx;
   box-shadow: 0 0 54rpx 0 #dcdcdc;

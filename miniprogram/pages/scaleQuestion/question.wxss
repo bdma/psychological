@@ -6,6 +6,7 @@
 .progress_wrap{
     display: flex;
     align-items: center;
+    margin: 20rpx auto 40rpx;
 }
 .progress_bar{
     flex: 1;
@@ -16,7 +17,7 @@
     color: #888;
 }
 .question{
-    padding: 30rpx;
+    margin: 50rpx 0 60rpx;
 }
 .aswers{
     padding: 0 30rpx;
@@ -24,9 +25,23 @@
 .answer{
     display: flex;
     align-items: center;
-    padding-bottom: 10rpx;
+    padding: 20rpx 0 30rpx;
 }
 .icon{
     display: inline-block;
     margin-right: 10rpx;
+}
+.pre_question{
+    color: #6093EC;
+    font-size: 34rpx;
+    position: absolute;
+    width: 690rpx;
+    left:30rpx;
+    bottom: 160rpx;
+    text-align: center;
+}
+.pre_img{
+    width:99rpx;
+    margin: 10rpx auto;
+    display: block;
 }

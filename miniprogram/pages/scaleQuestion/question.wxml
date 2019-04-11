@@ -17,4 +17,9 @@
             </view>
         </view>
     </block>
+    <view class="pre_question" catchtap="backPre" wx:if="{{curQuestionIndex}}">
+        <image class="pre_img" src="../../images/back.png" mode="widthFix" lazy-load="trrue">
+        </image>
+        上一题
+    </view>
 </view>

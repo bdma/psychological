@@ -31,6 +31,20 @@ Page({
 
     })
     selectArr = []
+
+    // wx.showNavigationBarLoading()
+    wx.setKeepScreenOn({
+      keepScreenOn: true
+    })
+    // wx.makePhoneCall({
+    //   phoneNumber: '16601716968' // 仅为示例，并非真实的电话号码
+    // })
+    // wx.scanCode({
+    //   success(res) {
+    //     console.log(res)
+    //   }
+    // })
+    
   },
   getData(id) {
     let that = this
@@ -58,6 +72,8 @@ Page({
     })
   },
   selectAnswer(e) {
+    wx.vibrateShort()
+
     let score = e.currentTarget.dataset.score,
       index = e.currentTarget.dataset.index,
       that = this
@@ -105,6 +121,12 @@ Page({
       }
       return Math.round(s * 1.25);
     }
+  },
+  backPre() {
+    this.setData({
+      curQuestionIndex: this.data.curQuestionIndex - 1,
+      percent: (this.data.curQuestionIndex - 1) * 100 / this.data.questions.length
+    })
   }
 
 

@@ -1,6 +1,6 @@
 /* miniprogram/pages/scaleResult/result.wxss */
 .wrap{
-    padding: 24rpx;
+    padding: 30rpx;
     box-sizing: border-box;
     background-color: #fff;
 }
