@@ -5,14 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    question:{}
+    question: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id=options.id
+    let id = options.id
     // let id=1
     this.getData(id)
   },
@@ -55,11 +55,11 @@ Page({
   onShareAppMessage: function () {
 
   },
-  goQuestion(e){
+  goQuestion(e) {
     let id = e.currentTarget.dataset.id,
-    url='/pages/scaleQuestion/question?id='+id
+      url = '/pages/scaleQuestion/question?id=' + id
     wx.navigateTo({
-      url:url
+      url: url
     })
   },
   getData(id) {
@@ -69,8 +69,8 @@ Page({
       name: 'dbGet',
       // 传给云函数的参数
       data: {
-        param:{
-          scale_id:id
+        param: {
+          scale_id: id
         }
       },
       fail: console.error,
@@ -83,5 +83,9 @@ Page({
       }
 
     })
+  },
+  onGetUserInfo(e) {
+    console.log("onGetUserInfo:", e.detail)
+    wx.setStorageSync("userInfo",e.detail.userInfo)
   }
 })

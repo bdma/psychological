@@ -44,7 +44,7 @@ exports.main = async (event, context) => {
     },
     searchArr = []
 
-  Object.assign(scoreObj, event.param)
+  Object.assign(scoreObj, event.param.scoreObj)
   scores = [].concat(scoreObj)
 
   console.log("timeStr scoreObj scores:", timeStr, scoreObj, scores)
@@ -68,9 +68,11 @@ exports.main = async (event, context) => {
   } else {
     // let scores = [].push(scoreObj)
     console.log("add scores:", scores)
+    let userInfoObj = event.param.userInfoObj
     await db.collection(cltName).add({
       data: {
         openId: event.userInfo.openId,
+        userInfoObj,
         scores: scores
       }
     }).then(res => {

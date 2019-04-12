@@ -22,4 +22,18 @@
         </image>
         上一题
     </view>
+
+</view>
+<view class="result_wrap wrap" wx:if="{{score}}">
+    <view class="title">结果</view>
+    <view class="score">
+        {{score}}
+    </view>
+    <view class="title">说明</view>
+    <view class="score" wx:for="{{resultStatus}}">
+        {{item}}
+    </view>
+    <view class="todo">
+        Todo：图像显示 得分范围，分层 历次测试得分 加入信效时间，如少1分钟的不记录
+    </view>
 </view>

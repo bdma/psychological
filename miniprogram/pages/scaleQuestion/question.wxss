@@ -2,6 +2,7 @@
 .wrap{
     padding: 30rpx;
     background-color: #fff;
+    box-sizing: border-box;
 }
 .progress_wrap{
     display: flex;
@@ -44,4 +45,25 @@
     width:99rpx;
     margin: 10rpx auto;
     display: block;
+}
+
+.result_wrap{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    min-height: 100vh;
+    z-index: 9;
+}
+.title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1ba1f0;
+    margin-bottom: 15rpx;
+}
+.score{
+    margin-bottom: 40rpx;
+}
+.todo{
+    color: #f1f1f1
 }
