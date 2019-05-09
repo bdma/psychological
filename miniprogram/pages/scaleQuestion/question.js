@@ -94,27 +94,39 @@ Page({
     if (that.data.curQuestionIndex + 1 >= that.data.questions.length) {
       let endTime = (new Date()).getTime(),
         takeTime = (endTime - startTime) / 1000,
-        score = this.getTotalScore(selectArr),
-        userInfoObj = wx.getStorageSync("userInfo")
+        userInfoObj = wx.getStorageSync("userInfo"),
+        score = this.getTotalScore(selectArr)
+      wx.cloud.callFunction({
+        name: 'formula',
+        data: {
+          formula_id: this.data.detail.formula_id,
+          arr: selectArr
+        },
+        fail: console.error,
+        success(res) {
+          console.log("formula:", res) // 3
+          score=res.result
+          this.setData({
+            score,
+    
+          })
+          let param = {
+            scoreObj: {
+              score,
+              takeTime,
+              table_name: this.data.name
+            },
+            userInfoObj
+          }
+          console.log("score takeTime:", score, startTime, endTime, takeTime, param)
+          this.updateScore(param)
+          return
+        }
+      })
 
 
       // let url = '/pages/scaleResult/result?score=' + score + '&name=' + that.data.name + '&result_status=' + that.data.detail.result_status + '&take_time=' + takeTime
       // console.log(id)
-      this.setData({
-        score,
-
-      })
-      let param = {
-        scoreObj: {
-          score,
-          takeTime,
-          table_name: this.data.name
-        },
-        userInfoObj
-      }
-      console.log("score takeTime:", score, startTime,  endTime, takeTime, param)
-      this.updateScore(param)
-      return
     }
 
     // 显示下一题

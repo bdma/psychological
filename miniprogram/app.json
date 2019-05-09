@@ -12,5 +12,6 @@
     "navigationBarBackgroundColor": "#6093EC",
     "navigationBarTitleText": "心理测量",
     "navigationBarTextStyle": "white"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
