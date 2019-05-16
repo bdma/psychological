@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/scaleList/list",
+    "pages/index/index",
     "pages/scaleQuestion/question",
     "pages/scaleResult/result",
-    "pages/scaleDetail/detail",
-    "pages/index/index"
+    "pages/scaleDetail/detail"
   ],
   "window": {
     "backgroundColor": "#fff",

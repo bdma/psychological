@@ -5,11 +5,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tab: false,
     tables: []
   },
 
   onShow: function () {
-    this.getData()
+    this.getData('dbGet')
+    this.getData('dbGet')
     // this.getUser()
   },
 
@@ -26,20 +28,19 @@ Page({
   },
   goDetail(e) {
     let id = e.currentTarget.dataset.id,
-    url = '/pages/scaleDetail/detail?id='+id
+      url = '/pages/scaleDetail/detail?id=' + id
     console.log(id)
     wx.navigateTo({
       url: url
     })
   },
-  getData() {
+  getData(tableName) {
     let that = this
     wx.cloud.callFunction({
       // 云函数名称
-      name: 'dbGet',
+      name: tableName,
       // 传给云函数的参数
-      data: {
-      },
+      data: {},
       fail: console.error,
       success(res) {
         console.log(res.result) // 3
@@ -51,14 +52,13 @@ Page({
 
     })
   },
-  getUser(){
+  getUser() {
     let that = this
     wx.cloud.callFunction({
       // 云函数名称
       name: 'login',
       // 传给云函数的参数
-      data: {
-      },
+      data: {},
       fail: console.error,
       success(res) {
         console.log(res.result) // 3
@@ -69,6 +69,12 @@ Page({
       }
 
     })
+  },
+  selecttab(e) {
+    this.setData({
+      tab: e.currentTarget.dataset.tab
+    })
+
   }
 
 })
