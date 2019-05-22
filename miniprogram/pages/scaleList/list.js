@@ -5,8 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tab: false,
-    tables: []
+    tab: 1,
+    tables: [],
+    results:{}
   },
 
   onShow: function () {
@@ -38,7 +39,7 @@ Page({
             tables: res.result.data
           })
         } else if (data.cltName == "users") {
-          console.log("已测列表", res.result) // 3
+          console.log("已测列表", res.result.data) // 3
           that.setData({
             results: res.result.data
           })

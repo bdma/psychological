@@ -60,13 +60,12 @@ exports.main = async (event, context) => {
       openId: event.userInfo.openId
     }).update({
       data: {
-        scores: _.push(scoreObj)
+        scores: _.unshift(scoreObj)
       }
     }).then(res => {
       console.log("update:", res)
     })
   } else {
-    // let scores = [].push(scoreObj)
     console.log("add scores:", scores)
     let userInfoObj = event.param.userInfoObj
     await db.collection(cltName).add({
