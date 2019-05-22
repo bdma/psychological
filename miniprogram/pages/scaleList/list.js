@@ -11,20 +11,42 @@ Page({
 
   onShow: function () {
     this.getData('dbGet')
-    this.getData('dbGet')
-    // this.getUser()
+    this.getData('dbGet', {
+      cltName: 'users',
+      param: {}
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-
-
-  /**
-   * 用户点击右上角分享
-   */
   onShareAppMessage: function () {
 
+  },
+  getData(functionName, data = {
+    cltName: 'tables',
+    param: {}
+  }) {
+    let that = this
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: functionName,
+      // 传给云函数的参数
+      data,
+      fail: console.error,
+      success(res) {
+        if (data.cltName == "tables") {
+          console.log("量表列表", res.result) // 3
+          that.setData({
+            tables: res.result.data
+          })
+        } else if (data.cltName == "users") {
+          console.log("已测列表", res.result) // 3
+          that.setData({
+            results: res.result.data
+          })
+        }
+
+      }
+
+    })
   },
   goDetail(e) {
     let id = e.currentTarget.dataset.id,
@@ -32,42 +54,6 @@ Page({
     console.log(id)
     wx.navigateTo({
       url: url
-    })
-  },
-  getData(tableName) {
-    let that = this
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: tableName,
-      // 传给云函数的参数
-      data: {},
-      fail: console.error,
-      success(res) {
-        console.log(res.result) // 3
-        that.setData({
-          tables: res.result.data
-        })
-
-      }
-
-    })
-  },
-  getUser() {
-    let that = this
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'login',
-      // 传给云函数的参数
-      data: {},
-      fail: console.error,
-      success(res) {
-        console.log(res.result) // 3
-        // that.setData({
-        //   tables: res.result.data
-        // })
-
-      }
-
     })
   },
   selecttab(e) {

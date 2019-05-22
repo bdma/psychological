@@ -2,9 +2,9 @@
 <view class="wrap">
     <view class="menu_wrap">
         <view class="menu {{tab==0 && 'seleted'}}" data-tab="0" catchtap="selecttab">全部</view>
-        <view class="menu {{tab==1 && 'seleted'}}"  data-tab="1" catchtap="selecttab">已测</view>
+        <view class="menu {{tab==1 && 'seleted'}}" data-tab="1" catchtap="selecttab">已测</view>
     </view>
-    <view class="item" wx:if="{{tab==0}}" catchtap="goDetail" data-id="{{item.scale_id}}" wx:for="{{tables}}" wx:key="_id">
+    <view class="item" hidden="{{tab!=0}}" catchtap="goDetail" data-id="{{item.scale_id}}" wx:for="{{tables}}" wx:key="_id">
         <view class="title">{{item.name}}</view>
         <view class="profile">{{item.profile}}</view>
         <view class="bar_wrap">
@@ -12,7 +12,7 @@
             <view class="sum">{{item.questions.length}}题</view>
         </view>
     </view>
-    <view class='container' wx:if="{{tab==1}}">
+    <view class='container' hidden="{{tab!=1}}">
         <view class='picker-content'>
             <!-- <image class='date-icon' src='../../assets/date_48.png'></image> -->
             <view class='date-text'>{{currentDate}}</view>

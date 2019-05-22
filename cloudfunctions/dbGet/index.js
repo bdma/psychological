@@ -6,8 +6,8 @@ cloud.init()
 const db = cloud.database()
 // 云函数入口函数
 exports.main = async (event, context) => {
-  let cltName = event.cltName || 'tables'
-  let param = event.param || {}
+  let cltName = event.cltName
+  let param = event.param
   if (Object.keys(param).length > 0) {
     param.scale_id = Number(param.scale_id)
   }
