@@ -12,27 +12,21 @@
             <view class="sum">{{item.questions.length}}题</view>
         </view>
     </view>
-    <view class='container' hidden="{{tab!=1}}">
-        <view class='picker-content'>
-            <!-- <image class='date-icon' src='../../assets/date_48.png'></image> -->
-            <view class='date-text'>{{currentDate}}</view>
-        </view>
-        <view class='table-wrapper'>
-            <block wx:for="{{results}}" wx:key="openid" wx:for-item="result">
-                <view class='title-wrapper'>
-                    <text class='table_title'>{{username + " 老师 " + currentDate + " 月工资表"}}</text>
+    <view class='result_wrap' hidden="{{tab!=1}}">
+        <block wx:for="{{results}}" wx:key="openid" wx:for-item="result">
+            <view class='user_info'>
+                <view class="avatar_wrap {{result.userInfoObj.gender==2 && 'female'}}">
+                    <image class="avatar" mode="widthFix" src="{{result.userInfoObj.avatarUrl}}"></image>
                 </view>
-                <view class='nodata' wx:if='{{result.scores.length === 0}}'>本月暂无工资数据</view>
-                <view class='row1' wx:if='{{result.scores.length > 0}}' wx:for='{{result.scores}}' wx:key='*this'>
-                    <text class='text'>{{item.table_name}}</text>
-                    <view class='column2-wrapper'>
-                        <view class='column-value'>{{item.time}}</view>
-                        <view class='column-value'>{{item.takeTime}}</view>
-                        <view class='column-value'>{{item.score}}</view>
-                        
-                    </view>
-                </view>
-            </block>
-        </view>
+                <view class="name">{{result.userInfoObj.nickName}}</view>
+                <view class="test_times">测试{{result.scores.length}}次</view>
+            </view>
+            <view class="result" wx:for="{{result.scores}}" wx:key="*this">
+                <view class="table_name">{{item.table_name}}</view>
+                <view class="time">{{item.time}}</view>
+                <view class="take_time">{{item.takeTime}}</view>
+                <view class="score">{{item.score}}</view>
+            </view>
+        </block>
     </view>
 </view>
