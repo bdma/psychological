@@ -10,7 +10,6 @@ Page({
   data: {
     questions: [],
     curQuestionIndex: 0,
-    answerArr: [],
     percent: 10,
     score: 0
 
@@ -54,6 +53,7 @@ Page({
       name: 'dbGet',
       // 传给云函数的参数
       data: {
+        cltName: 'tables',
         param: {
           scale_id: id
         }
@@ -83,8 +83,7 @@ Page({
 
     selectArr.push(score)
     this.setData({
-      selectAnswerIndex: index,
-      answerArr: selectArr //储存所选答案
+      selectAnswerIndex: index
     })
     console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length)
     if (that.data.curQuestionIndex == 0) {
@@ -92,10 +91,12 @@ Page({
 
     }
     if (that.data.curQuestionIndex + 1 >= that.data.questions.length) {
-      let endTime = (new Date()).getTime(),
+      let that = this,
+        endTime = (new Date()).getTime(),
         takeTime = (endTime - startTime) / 1000,
         userInfoObj = wx.getStorageSync("userInfo"),
         score = this.getTotalScore(selectArr)
+        console.log("this.data.detail.formula_id:", this.data.detail.formula_id)
       wx.cloud.callFunction({
         name: 'formula',
         data: {
@@ -105,10 +106,10 @@ Page({
         fail: console.error,
         success(res) {
           console.log("formula:", res) // 3
-          score=res.result
-          this.setData({
+          score = res.result
+          that.setData({
             score,
-    
+
           })
           let param = {
             scoreObj: {
@@ -119,7 +120,7 @@ Page({
             userInfoObj
           }
           console.log("score takeTime:", score, startTime, endTime, takeTime, param)
-          this.updateScore(param)
+          that.updateScore(param)
           return
         }
       })
@@ -169,16 +170,6 @@ Page({
         console.log(res) // 3
       }
     })
-  },
-  getFormatTime(timestamp) {
-    var d = timestamp ? new Date(timestamp) : new Date();
-    var date = (d.getFullYear()) + "-" +
-      (d.getMonth() + 1) + "-" +
-      (d.getDate()) + " " +
-      (d.getHours()) + ":" +
-      (d.getMinutes()) + ":" +
-      (d.getSeconds());
-    return date;
   }
 
 

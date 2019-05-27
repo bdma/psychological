@@ -2,7 +2,6 @@
 
 .wrap {
   color: #616161;
-
 }
 
 .menu_wrap {
@@ -37,9 +36,6 @@
   border: 1rpx solid #f00;
 }
 
-
-
-
 .title {
   color: #616161;
   font-size: 38rpx;
@@ -70,7 +66,6 @@
   font-size: 28rpx;
   background-color: #afafaf;
   color: #fff;
-
 }
 
 .seleted {
@@ -79,14 +74,14 @@
 }
 
 .result_wrap {
-  padding: 0 16rpx 10rpx;
-
+  padding: 0 26rpx 10rpx;
 }
 
 .user_info {
   display: flex;
   align-items: center;
-
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
 }
 
 .avatar_wrap {
@@ -97,12 +92,10 @@
   justify-content: center;
   align-items: center;
   border: 2rpx solid #b8cdfb;
-
 }
 
 .female {
   border: 2rpx solid #ffb6e3;
-
 }
 
 .avatar {
@@ -114,7 +107,11 @@
   font-size: 32rpx;
   font-weight: 600;
   color: #000;
-  margin-left: 36rpx;
+  margin-left: 16rpx;
+  max-width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .test_times {
@@ -122,7 +119,6 @@
   font-size: 28rpx;
   font-weight: 500;
   color: #9a9a9a;
-
 }
 
 .result {
@@ -130,9 +126,15 @@
   justify-content: space-between;
   font-size: 28rpx;
   font-weight: 500;
+  margin-bottom: 6rpx;
 }
 
-.table_name {}
+.table_name {
+  max-width: 300rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .time {}
 

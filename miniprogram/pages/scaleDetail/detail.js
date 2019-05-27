@@ -69,6 +69,7 @@ Page({
       name: 'dbGet',
       // 传给云函数的参数
       data: {
+        cltName: 'tables',
         param: {
           scale_id: id
         }
