@@ -45,19 +45,18 @@ exports.main = async (event, context) => {
     searchArr = []
 
   Object.assign(scoreObj, event.param.scoreObj)
-  scores = [].concat(scoreObj)
-
-  console.log("timeStr scoreObj scores:", timeStr, scoreObj, scores)
-
+  
+  console.log("event.param.userInfoObj timeStr scoreObj:", event.param.userInfoObj,timeStr, scoreObj)
+  
   await db.collection(cltName).where({
-    openId: event.userInfo.openId
+    openId: event.param.userInfoObj.openId
   }).get().then(res => {
     console.log("where get:", res.data)
     searchArr = res.data
   })
   if (searchArr.length) {
     await db.collection(cltName).where({
-      openId: event.userInfo.openId
+      openId: event.param.userInfoObj.openId
     }).update({
       data: {
         scores: _.unshift(scoreObj)
@@ -66,6 +65,7 @@ exports.main = async (event, context) => {
       console.log("update:", res)
     })
   } else {
+    scores = [].concat(scoreObj)
     console.log("add scores:", scores)
     let userInfoObj = event.param.userInfoObj
     await db.collection(cltName).add({

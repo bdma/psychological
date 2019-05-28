@@ -22,7 +22,7 @@
                 <view class="test_times">测试{{result.scores.length}}次</view>
             </view>
             <view class="result" wx:for="{{result.scores}}" wx:key="*this">
-                <view class="table_name">{{item.table_name}}</view>
+                <view class="table_name">{{item.scale_name}}</view>
                 <view class="time">{{item.date}}</view>
                 <view class="take_time">{{item.takeTime}}</view>
                 <view class="score">{{item.score}}</view>

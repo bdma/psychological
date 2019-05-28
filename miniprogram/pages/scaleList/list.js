@@ -7,7 +7,7 @@ Page({
   data: {
     tab: 1,
     tables: [],
-    results:{}
+    results: {}
   },
 
   onShow: function () {
@@ -40,8 +40,8 @@ Page({
           })
         } else if (data.cltName == "users") {
           res.result.data.forEach(ele => {
-            ele.scores.forEach(el=>{
-              el.date=el.time.slice(5)
+            ele.scores.forEach(el => {
+              el.date = el.time.slice(5)
             })
           });
           console.log("已测列表", res.result.data) // 3
