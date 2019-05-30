@@ -40,11 +40,21 @@ Page({
           })
         } else if (data.cltName == "users") {
           res.result.data.forEach(ele => {
+            let newestScore = []
             ele.scores.forEach(el => {
               el.date = el.time.slice(5)
+              let inArray = false;
+              inArray = newestScore.some(newEle => {
+                newEle.scale_name == el.scale_name
+              })
+              if (!inArray) {
+                newestScore.push(el)
+              }
             })
+            ele.newestScore = newestScore
           });
           console.log("已测列表", res.result.data) // 3
+
           that.setData({
             results: res.result.data
           })
