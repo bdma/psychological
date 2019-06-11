@@ -31,46 +31,52 @@ function time() {
 
   // 最后拼接字符串，得到一个格式为(yyyy-MM-dd)的日期
   let nowTime = date.getFullYear() + seperator + nowMonth + seperator + strDate + ' ' + time;
+  // console.log("nowTime:", nowTime)
   return nowTime
 }
 // 云函数入口函数
 exports.main = async (event, context) => {
-  const wxContext = cloud.getWXContext()
+  const { OPENID, APPID, UNIONID } = cloud.getWXContext()
   const _ = db.command
-  let cltName = 'users',
-    timeStr = time(),
-    scoreObj = {
-      time: timeStr
-    },
-    searchArr = []
 
-  Object.assign(scoreObj, event.param.scoreObj)
-  
-  console.log("event.param.userInfoObj timeStr scoreObj:", event.param.userInfoObj,timeStr, scoreObj)
-  
+
+  let cltName = 'users',
+    searchArr = [],
+    scoreObj = event.param.scoreObj
+
+  scoreObj.time = time().slice(5)
+
+  let scores = {
+    [scoreObj.scale_id]: [].concat(scoreObj)
+  }
+
+
+  console.log("scoreObj scores:", scoreObj, scores)
+
   await db.collection(cltName).where({
-    openId: event.param.userInfoObj.openId
+    openId: OPENID
   }).get().then(res => {
     console.log("where get:", res.data)
     searchArr = res.data
   })
   if (searchArr.length) {
     await db.collection(cltName).where({
-      openId: event.param.userInfoObj.openId
+      openId: OPENID
     }).update({
       data: {
-        scores: _.unshift(scoreObj)
+        scores: {
+          [scoreObj.scale_id]: _.unshift(scoreObj)
+        }
       }
     }).then(res => {
       console.log("update:", res)
     })
   } else {
-    scores = [].concat(scoreObj)
     console.log("add scores:", scores)
     let userInfoObj = event.param.userInfoObj
     await db.collection(cltName).add({
       data: {
-        openId: event.userInfo.openId,
+        openId: OPENID,
         userInfoObj,
         scores: scores
       }

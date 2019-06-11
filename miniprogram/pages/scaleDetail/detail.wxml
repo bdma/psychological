@@ -1,11 +1,11 @@
 <!--miniprogram/pages/detail/detail.wxml-->
 <view class="wrap">
     <view class="title page__title">{{question.name}}</view>
-    <view class="subtitle">撒娇看到卡还是饭卡舒服了开始减肥啦手机发呆看了撒娇</view>
+    <view class="subtitle">{{question.sub_name}}</view>
     <view class="tag_wrap">
         <view class="sum">{{question.questions.length}}个问题</view>
-        <view class="time">4分钟</view>
-        <view class="views">1234人测过</view>
+        <view class="time">{{question.cost_time}}</view>
+        <!-- <view class="views">1234人测过</view> -->
     </view>
     <view class="profile">
             {{question.profile}}

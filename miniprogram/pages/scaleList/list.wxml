@@ -4,6 +4,7 @@
         <view class="menu {{tab==0 && 'seleted'}}" data-tab="0" catchtap="selecttab">全部</view>
         <view class="menu {{tab==1 && 'seleted'}}" data-tab="1" catchtap="selecttab">已测</view>
     </view>
+
     <view class="item" hidden="{{tab!=0}}" catchtap="goDetail" data-id="{{item.scale_id}}" wx:for="{{tables}}" wx:key="_id">
         <view class="title">{{item.name}}</view>
         <view class="profile">{{item.profile}}</view>
@@ -12,6 +13,7 @@
             <view class="sum">{{item.questions.length}}题</view>
         </view>
     </view>
+
     <view class='result_wrap' hidden="{{tab!=1}}">
         <block wx:for="{{results}}" wx:key="openid" wx:for-item="result">
             <view class='user_info'>
@@ -19,14 +21,33 @@
                     <image class="avatar" mode="widthFix" src="{{result.userInfoObj.avatarUrl}}"></image>
                 </view>
                 <view class="name">{{result.userInfoObj.nickName}}</view>
-                <view class="test_times">测试{{result.scores.length}}次</view>
+                <view class="test_times">完成{{result.scores_keys.length}}种测试</view>
             </view>
-            <view class="result" wx:for="{{result.scores}}" wx:key="*this">
-                <view class="table_name">{{item.scale_name}}</view>
-                <view class="time">{{item.date}}</view>
-                <view class="take_time">{{item.takeTime}}</view>
-                <view class="score">{{item.score}}</view>
-            </view>
+            <block wx:for="{{result.scores_keys}}" wx:key="*this">
+
+                <!-- <view class="table_name">{{item}}</view> -->
+                <view class="result {{index==0&&'grey_bk'}}" wx:for="{{result.scores[item]}}" wx:key="*this">
+                    <view class="table_name">{{item.scale_name}}</view>
+                    <view class="time">{{item.time}}</view>
+                    <view class="take_time">{{item.takeTime}}秒</view>
+                    <view class="score">{{item.score}}分</view>
+                </view>
+            </block>
         </block>
+    </view>
+    <view class="share_btn" wx:if="{{tab==0 && !showPop}}"  catchtap="showPop">分享</view>
+    <view class="share_pop" wx:if="{{showPop}}" catchtap="closePop">
+        <view class="share_content"  catchtap="">
+            <view class="select_all selected_all"  catchtap="selectedAll">全选</view>
+            <scroll-view scroll-y scroll-with-animation class="options">
+                <block wx:for="{{tables}}" wx:key="_id">
+                    <view class="option" data-index="{{index}}" catchtap="selectShareScore">
+                        <icon class="icon" size="18" type="{{item.selected?'success':'circle'}}"></icon>
+                        {{item.name}}
+                    </view>
+                </block>
+            </scroll-view>
+            <button open-type="share" class="btn_share">分享所选量表</button>
+        </view>
     </view>
 </view>

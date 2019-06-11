@@ -18,6 +18,7 @@
   text-align: left;
   font-size: 14px;
   padding: 0 80rpx 20rpx;
+  text-align: center;
 }
 
 .tag_wrap {

@@ -95,15 +95,10 @@ Page({
     // 显示下一题
     setTimeout(() => {
       selectArr[that.data.curQuestionIndex] = score
-      that.setData({
-        selectAnswerIndex: -1, //重置上一题选中状态
-        curQuestionIndex: that.data.curQuestionIndex + 1,
-        percent: (that.data.curQuestionIndex + 2) * 100 / that.data.questions.length
-      })
       console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
-      if (that.data.curQuestionIndex  >= that.data.questions.length) {
+      if (that.data.curQuestionIndex >= that.data.questions.length) {
         let endTime = (new Date()).getTime(),
-          takeTime = (endTime - startTime) / 1000,
+          takeTime = ((endTime - startTime) / 1000).toFixed(1),
           userInfoObj = wx.getStorageSync("userInfo"),
           score = that.getTotalScore(selectArr)
 
@@ -126,7 +121,7 @@ Page({
               scoreObj: {
                 scale_id: that.data.tableId,
                 formula_id: that.data.detail.formula_id,
-                selectAnswer:selectArr,
+                selectAnswer: selectArr,
                 score,
                 takeTime,
                 scale_name: that.data.name
@@ -135,14 +130,16 @@ Page({
             }
             console.log("score takeTime:", score, startTime, endTime, takeTime, param)
             that.updateScore(param)
-            return
           }
         })
-
-
-        // let url = '/pages/scaleResult/result?score=' + score + '&name=' + that.data.name + '&result_status=' + that.data.detail.result_status + '&take_time=' + takeTime
-        // console.log(id)
+        return
       }
+      that.setData({
+        selectAnswerIndex: -1, //重置上一题选中状态
+        curQuestionIndex: that.data.curQuestionIndex + 1,
+        percent: (that.data.curQuestionIndex + 2) * 100 / that.data.questions.length
+      })
+      console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
 
     }, 200);
 

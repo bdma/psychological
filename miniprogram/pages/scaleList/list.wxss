@@ -130,7 +130,7 @@
 }
 
 .table_name {
-  max-width: 300rpx;
+  width: 290rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -140,4 +140,87 @@
 
 .take_time {}
 
-.score {}
+.score {
+  font-weight: 800;
+  font-size: 32rpx;
+}
+
+.grey_bk {
+  background-color: #ddd
+}
+
+.share_btn {
+  width: 260rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  background-color: #6093EC;
+  color: #fff;
+  text-align: center;
+  position: fixed;
+  left: 245rpx;
+  bottom: 100rpx;
+  box-shadow: 0 0 10rpx #6093EC;
+}
+
+.share_pop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.select_all{
+  font-size: 34rpx;
+  font-weight: 600;
+  width: 300rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin:0 auto 20rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  box-sizing: border-box;
+  background: #e1e1e1;
+  color: #666;
+  box-shadow: 0 0 2rpx rgba(0, 0, 0, 0);
+}
+.selected_all{
+  color: #fff;
+  background: #2098D1;
+}
+.share_content {
+  border-radius: 8rpx;
+  width:680rpx;
+  box-sizing: border-box;
+  padding: 50rpx 30rpx;
+  background-color: #fff;
+}
+.options{
+  height: 680rpx;
+}
+.option{
+  display: flex;
+  align-items: center;
+  padding-top: 6rpx;
+  padding-bottom: 6rpx;
+}
+.icon{
+  display: inline-block;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+.btn_share{
+  width: 360rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  background-color: #6093EC;
+  color: #fff;
+  text-align: center;
+ 
+  /* box-shadow: 0 0 10rpx #6093EC; */
+}
