@@ -5,9 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tab: 0,
+    tab: 1,
     tables: [],
     results: {},
+    hadselectedAll: false,
     showPop: true
   },
 
@@ -20,7 +21,7 @@ Page({
   },
 
   onShareAppMessage: function () {
-
+    
   },
   getData(functionName, data = {
     cltName: 'tables',
@@ -41,22 +42,7 @@ Page({
           })
         } else if (data.cltName == "users") {
           res.result.data.forEach(ele => {
-<<<<<<< HEAD
             ele.scores_keys = Object.keys(ele.scores)
-=======
-            let newestScore = []
-            ele.scores.forEach(el => {
-              el.date = el.time.slice(5)
-              let inArray = false;
-              inArray = newestScore.some(newEle => {
-                newEle.scale_name == el.scale_name
-              })
-              if (!inArray) {
-                newestScore.push(el)
-              }
-            })
-            ele.newestScore = newestScore
->>>>>>> d0f2ccb7f1f6e97d3fcc73991cb265d79a6a92fb
           });
           console.log("已测列表", res.result.data) // 3
 
@@ -86,10 +72,27 @@ Page({
   selectShareScore(e) {
     let index = e.currentTarget.dataset.index
     this.data.tables[index].selected = !this.data.tables[index].selected
-    this.setData({
-      tables: this.data.tables
+
+    let allSelected = this.data.tables.every(ele => {
+      return ele.selected
     })
-    console.log(this.data.tables)
+    console.log(allSelected, this.data.tables)
+
+    this.setData({
+      tables: this.data.tables,
+      hadselectedAll: allSelected
+    })
+
+  },
+  selectedAll() {
+    this.data.tables.forEach(ele => {
+      ele.selected = !ele.selected
+
+    })
+    this.setData({
+      tables: this.data.tables,
+      hadselectedAll: !this.data.hadselectedAll
+    })
   },
   closePop() {
     this.setData({
@@ -102,11 +105,5 @@ Page({
       showPop: true
     })
   },
-  selectedAll() {
-    this.data.tables.forEach(ele =>{
-      ele.selected = !ele.selected
-      
-    })
-  }
 
 })

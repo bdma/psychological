@@ -38,7 +38,7 @@
     <view class="share_btn" wx:if="{{tab==0 && !showPop}}"  catchtap="showPop">分享</view>
     <view class="share_pop" wx:if="{{showPop}}" catchtap="closePop">
         <view class="share_content"  catchtap="">
-            <view class="select_all selected_all"  catchtap="selectedAll">全选</view>
+            <view class="select_all {{hadselectedAll&&'selected_all'}}"  catchtap="selectedAll">全选</view>
             <scroll-view scroll-y scroll-with-animation class="options">
                 <block wx:for="{{tables}}" wx:key="_id">
                     <view class="option" data-index="{{index}}" catchtap="selectShareScore">
