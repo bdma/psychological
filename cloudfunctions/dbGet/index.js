@@ -8,6 +8,7 @@ const db = cloud.database()
 exports.main = async (event, context) => {
   let cltName = event.cltName
   let param = event.param
+  const { OPENID, APPID, UNIONID } = cloud.getWXContext()
   if (Object.keys(param).length > 0) {
     param.scale_id = Number(param.scale_id)
   }
@@ -15,6 +16,8 @@ exports.main = async (event, context) => {
   let result = await db.collection(cltName).where(param).get()
   if (Object.keys(param).length > 0) {
     result = result.data[0]
+
   }
+  result.openid = OPENID
   return result
 }

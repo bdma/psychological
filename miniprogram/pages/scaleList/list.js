@@ -5,11 +5,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tab: 1,
+    tab: 0,
     tables: [],
     results: {},
     hadselectedAll: false,
-    showPop: true
+    showPop: false
   },
 
   onShow: function () {
@@ -21,7 +21,27 @@ Page({
   },
 
   onShareAppMessage: function () {
-    
+    let selectedScaleArr = []
+    this.data.tables.forEach(ele => {
+      if (ele.selected) {
+        selectedScaleArr.push(ele.scale_id)
+      }
+    })
+    let selectedScaleIds = selectedScaleArr.join(),
+      path = `/page/user?openid=${this.data.openId}&scale_ids=${selectedScaleIds}`
+
+    console.log("分享 openid,selectedScaleId,path:", this.data.openId, selectedScaleIds, path)
+    return {
+      title: '分享所选表格',
+      path
+    }
+  },
+  onGetUserInfo(e) {
+    console.log("onGetUserInfo:", e.detail)
+    wx.setStorageSync("userInfo", e.detail.userInfo)
+    this.setData({
+      showPop: true
+    })
   },
   getData(functionName, data = {
     cltName: 'tables',
@@ -38,7 +58,8 @@ Page({
         if (data.cltName == "tables") {
           console.log("量表列表", res.result) // 3
           that.setData({
-            tables: res.result.data
+            tables: res.result.data,
+            openId: res.result.openid
           })
         } else if (data.cltName == "users") {
           res.result.data.forEach(ele => {
@@ -86,7 +107,7 @@ Page({
   },
   selectedAll() {
     this.data.tables.forEach(ele => {
-      ele.selected = !ele.selected
+      ele.selected = !this.data.hadselectedAll
 
     })
     this.setData({
@@ -99,11 +120,6 @@ Page({
       showPop: false
     })
 
-  },
-  showPop() {
-    this.setData({
-      showPop: true
-    })
-  },
+  }
 
 })
