@@ -13,7 +13,12 @@ Page({
   },
 
   onShow: function () {
-    this.getData('dbGet')
+    let query = wx.getStorageSync("query")
+    console.log("list onShow query:", query)
+    this.getData('dbGet', {
+      cltName: 'tables',
+      param: query.scale_ids
+    })
     this.getData('dbGet', {
       cltName: 'users',
       param: {}
@@ -31,6 +36,9 @@ Page({
       path = `/page/user?openid=${this.data.openId}&scale_ids=${selectedScaleIds}`
 
     console.log("分享 openid,selectedScaleId,path:", this.data.openId, selectedScaleIds, path)
+    this.setData({
+      showPop: false
+    })
     return {
       title: '分享所选表格',
       path

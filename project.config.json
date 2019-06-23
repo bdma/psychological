@@ -31,12 +31,20 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
 					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide"
+					"pathName": "pages/databaseGuide/databaseGuide",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "群卡片",
+					"pathName": "pages/scaleList/list",
+					"query": "openid=o-WMJ0ae8JnCUetwYYoS5-63_Nx8&scale_ids=1",
+					"scene": 1008
 				}
 			]
 		}
