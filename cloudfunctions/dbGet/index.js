@@ -1,23 +1,32 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-
 cloud.init()
 
 const db = cloud.database()
+const _ = db.command
+
 // 云函数入口函数
 exports.main = async (event, context) => {
-  let cltName = event.cltName
-  let param = event.param
+  let cltName = event.cltName,
+    param = event.param,
+    result
   const { OPENID, APPID, UNIONID } = cloud.getWXContext()
-  if (Object.keys(param).length > 0) {
-    param.scale_id = Number(param.scale_id)
-  }
-  console.log("param:", param)
-  let result = await db.collection(cltName).where(param).get()
-  if (Object.keys(param).length > 0) {
-    result = result.data[0]
+  if (param.scale_ids) {
+    result = await db.collection(cltName).where(
+      {
+        scale_id: _.in(param.scale_ids)
+      }
+    ).get()
+  } else {
+    result = await db.collection(cltName).get()
 
   }
+  console.log("param,query:", param)
+  // if (Object.keys(param).length > 0) {
+  //   result = result.data[0]
+
+  // }
   result.openid = OPENID
+  console.log("result:", result)
   return result
 }

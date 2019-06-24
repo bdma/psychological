@@ -13,11 +13,22 @@ Page({
   },
 
   onShow: function () {
-    let query = wx.getStorageSync("query")
-    console.log("list onShow query:", query)
+    let query = wx.getStorageSync("query"),
+      param = {}
+    if (query.scale_ids) {
+      let arr = query.scale_ids.split(",")
+      arr.forEach(function (ele) {
+        ele = ~~ele
+      })
+      param = {
+        // scale_ids: arr
+        scale_ids: [1,2]
+      }
+      console.log("list onShow query,param:", query, arr,param)
+    }
     this.getData('dbGet', {
       cltName: 'tables',
-      param: query.scale_ids
+      param
     })
     this.getData('dbGet', {
       cltName: 'users',
