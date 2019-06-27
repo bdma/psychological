@@ -11,21 +11,35 @@ exports.main = async (event, context) => {
     param = event.param,
     result
   const { OPENID, APPID, UNIONID } = cloud.getWXContext()
-  if (param.scale_ids) {
-    result = await db.collection(cltName).where(
-      {
-        scale_id: _.in(param.scale_ids)
-      }
-    ).get()
-  } else {
-    result = await db.collection(cltName).get()
+  console.log("param,event:", param,event)
+  if (cltName == "tables") {
 
+    if (param.scale_ids) {
+      result = await db.collection(cltName).where(
+        {
+          scale_id: _.in(param.scale_ids)
+        }
+      ).get()
+    } else {
+      result = await db.collection(cltName).get()
+
+    }
   }
-  console.log("param,query:", param)
-  // if (Object.keys(param).length > 0) {
-  //   result = result.data[0]
+  if (cltName == "users") {
+    result = await db.collection(cltName).get()
+    console.log("result:", result.data)
+    if (param.shareOpenId) {
+      let newResult = result.data.filter(ele => {
+        let scores = ele.scores.filter(el => {
+          el.shareOpenId == param.shareOpenId
+        })
+        return scores.length
+      })
 
-  // }
+      console.log("newResult:", newResult)
+    }
+  }
+
   result.openid = OPENID
   console.log("result:", result)
   return result

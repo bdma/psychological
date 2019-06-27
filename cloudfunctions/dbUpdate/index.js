@@ -40,48 +40,35 @@ exports.main = async (event, context) => {
   const _ = db.command
 
 
-  let cltName = 'users',
-    searchArr = [],
+  let userArr = [],
     scoreObj = event.param.scoreObj
-
+  //时间字段过长，干掉年
   scoreObj.time = time().slice(5)
 
-  let scores = {
-    [scoreObj.scale_id]: [].concat(scoreObj)
-  }
-
-
-  console.log("scoreObj scores:", scoreObj, scores)
-
-  await db.collection(cltName).where({
+  scoreObj.openId = OPENID
+  console.log("scoreObj:", scoreObj)
+  //写入测试结果
+  await db.collection('results').add({
+    data: scoreObj
+  }).then(res => {
+    console.log("写入测试结果:", res)
+  })
+  // 查询用户信息
+  await db.collection('users').where({
     openId: OPENID
   }).get().then(res => {
-    console.log("where get:", res.data)
-    searchArr = res.data
+    console.log("查询用户信息:", res.data)
+    userArr = res.data
   })
-  if (searchArr.length) {
-    await db.collection(cltName).where({
-      openId: OPENID
-    }).update({
-      data: {
-        scores: {
-          [scoreObj.scale_id]: _.unshift(scoreObj)
-        }
-      }
-    }).then(res => {
-      console.log("update:", res)
-    })
-  } else {
-    console.log("add scores:", scores)
+  if (!userArr.length) {
+    //写入用户信息
     let userInfoObj = event.param.userInfoObj
-    await db.collection(cltName).add({
-      data: {
-        openId: OPENID,
-        userInfoObj,
-        scores: scores
-      }
+    userInfoObj.openId = OPENID
+    console.log("userInfoObj:", userInfoObj)
+    await db.collection('users').add({
+      data: userInfoObj
     }).then(res => {
-      console.log("add:", res)
+      console.log("写入用户信息:", res)
     })
   }
 }

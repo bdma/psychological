@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tab: 0,
+    tab: 1,
     tables: [],
     results: {},
     hadselectedAll: false,
@@ -14,25 +14,25 @@ Page({
 
   onShow: function () {
     let query = wx.getStorageSync("query"),
-      param = {}
+      scaleParam = {}
     if (query.scale_ids) {
       let arr = query.scale_ids.split(",")
-      arr.forEach(function (ele) {
-        ele = ~~ele
-      })
-      param = {
-        // scale_ids: arr
-        scale_ids: [1,2]
+      for (let i = 0, l = arr.length; i < l; i++) {
+        arr[i] = ~~arr[i]
       }
-      console.log("list onShow query,param:", query, arr,param)
+      scaleParam.scale_ids = arr
     }
+    if (query.openid) {
+      scaleParam.shareOpenId = query.openid
+    }
+    console.log("list onShow query,scaleParam:", query, scaleParam)
     this.getData('dbGet', {
       cltName: 'tables',
-      param
+      param: scaleParam
     })
     this.getData('dbGet', {
       cltName: 'users',
-      param: {}
+      param: scaleParam
     })
   },
 

@@ -21,40 +21,6 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
   goQuestion(e) {
     let id = e.currentTarget.dataset.id,
       url = '/pages/scaleQuestion/question?id=' + id
@@ -63,7 +29,10 @@ Page({
     })
   },
   getData(id) {
-    let that = this
+    let that = this,
+      idArr = JSON.parse("[" + id + "]")
+    console.log("id:", idArr)
+    console.log("idArr:", idArr)
     wx.cloud.callFunction({
       // 云函数名称
       name: 'dbGet',
@@ -71,14 +40,14 @@ Page({
       data: {
         cltName: 'tables',
         param: {
-          scale_id: id
+          scale_ids: idArr
         }
       },
       fail: console.error,
       success(res) {
         console.log(res.result) // 3
         that.setData({
-          question: res.result
+          question: res.result.data[0]
         })
 
       }
@@ -87,6 +56,6 @@ Page({
   },
   onGetUserInfo(e) {
     console.log("onGetUserInfo:", e.detail)
-    wx.setStorageSync("userInfo",e.detail.userInfo)
+    wx.setStorageSync("userInfo", e.detail.userInfo)
   }
 })

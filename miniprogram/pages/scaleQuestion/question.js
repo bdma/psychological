@@ -51,7 +51,8 @@ Page({
 
   },
   getData(id) {
-    let that = this
+    let that = this,
+    idArr = JSON.parse("[" + id + "]")
     wx.cloud.callFunction({
       // 云函数名称
       name: 'dbGet',
@@ -59,18 +60,18 @@ Page({
       data: {
         cltName: 'tables',
         param: {
-          scale_id: id
+          scale_ids: idArr
         }
       },
       fail: console.error,
       success(res) {
         console.log(res.result) // 3
         that.setData({
-          detail: res.result,
-          name: res.result.name,
-          questions: res.result.questions,
-          resultStatus: res.result.result_status.split('，'),
-          percent: 100 / res.result.questions.length
+          detail: res.result.data[0],
+          name: res.result.data[0].name,
+          questions: res.result.data[0].questions,
+          resultStatus: res.result.data[0].result_status.split('，'),
+          percent: 100 / res.result.data[0].questions.length
         })
 
       }
@@ -92,54 +93,54 @@ Page({
       startTime = (new Date()).getTime()
 
     }
+    selectArr[that.data.curQuestionIndex] = score
+    console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
+    if (that.data.curQuestionIndex+1 == that.data.questions.length) {
+      let endTime = (new Date()).getTime(),
+        takeTime = ((endTime - startTime) / 1000).toFixed(1),
+        userInfoObj = wx.getStorageSync("userInfo"),
+        score = that.getTotalScore(selectArr)
+
+      console.log("this.data.detail.formula_id:", that.data.detail.formula_id)
+      wx.cloud.callFunction({
+        name: 'formula',
+        data: {
+          formula_id: that.data.detail.formula_id,
+          arr: selectArr
+        },
+        fail: console.error,
+        success(res) {
+          console.log("formula:", res) // 3
+          score = res.result
+          that.setData({
+            score,
+
+          })
+          let param = {
+            scoreObj: {
+              scale_id: that.data.tableId,
+              formula_id: that.data.detail.formula_id,
+              selectAnswer: selectArr,
+              score,
+              takeTime,
+              scale_name: that.data.name
+            },
+            userInfoObj
+          }
+          console.log("score takeTime:", score, startTime, endTime, takeTime, param)
+          that.updateScore(param)
+        }
+      })
+      return
+    }
     // 显示下一题
     setTimeout(() => {
-      selectArr[that.data.curQuestionIndex] = score
-      console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
-      if (that.data.curQuestionIndex >= that.data.questions.length) {
-        let endTime = (new Date()).getTime(),
-          takeTime = ((endTime - startTime) / 1000).toFixed(1),
-          userInfoObj = wx.getStorageSync("userInfo"),
-          score = that.getTotalScore(selectArr)
-
-        console.log("this.data.detail.formula_id:", that.data.detail.formula_id)
-        wx.cloud.callFunction({
-          name: 'formula',
-          data: {
-            formula_id: that.data.detail.formula_id,
-            arr: selectArr
-          },
-          fail: console.error,
-          success(res) {
-            console.log("formula:", res) // 3
-            score = res.result
-            that.setData({
-              score,
-
-            })
-            let param = {
-              scoreObj: {
-                scale_id: that.data.tableId,
-                formula_id: that.data.detail.formula_id,
-                selectAnswer: selectArr,
-                score,
-                takeTime,
-                scale_name: that.data.name
-              },
-              userInfoObj
-            }
-            console.log("score takeTime:", score, startTime, endTime, takeTime, param)
-            that.updateScore(param)
-          }
-        })
-        return
-      }
       that.setData({
         selectAnswerIndex: -1, //重置上一题选中状态
         curQuestionIndex: that.data.curQuestionIndex + 1,
         percent: (that.data.curQuestionIndex + 2) * 100 / that.data.questions.length
       })
-      console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
+      console.log("curQuestionIndex1 :", that.data.curQuestionIndex, that.data.questions.length)
 
     }, 200);
 
