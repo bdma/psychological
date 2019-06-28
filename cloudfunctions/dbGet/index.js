@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
     param = event.param,
     result
   const { OPENID, APPID, UNIONID } = cloud.getWXContext()
-  console.log("param,event:", param,event)
+  console.log("param,event:", param, event)
   if (cltName == "tables") {
 
     if (param.scale_ids) {
@@ -26,18 +26,27 @@ exports.main = async (event, context) => {
     }
   }
   if (cltName == "users") {
-    result = await db.collection(cltName).get()
-    console.log("result:", result.data)
-    if (param.shareOpenId) {
-      let newResult = result.data.filter(ele => {
-        let scores = ele.scores.filter(el => {
-          el.shareOpenId == param.shareOpenId
-        })
-        return scores.length
-      })
+    let openIdArr = []
+    openIdArr.push(OPENID)
 
-      console.log("newResult:", newResult)
-    }
+    let users = await db.collection(cltName).where(
+      {
+        openId: _.in(openIdArr)
+      }
+    ).get()
+    result.users = users
+    console.log("result openIdArr:", result.data, openIdArr)
+
+    // if (param.shareOpenId) {
+    //   let newResult = result.data.filter(ele => {
+    //     let scores = ele.scores.filter(el => {
+    //       el.shareOpenId == param.shareOpenId
+    //     })
+    //     return scores.length
+    //   })
+
+    //   console.log("newResult:", newResult)
+    // }
   }
 
   result.openid = OPENID

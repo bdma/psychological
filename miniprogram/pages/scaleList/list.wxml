@@ -15,7 +15,7 @@
     </view>
 
     <view class='result_wrap' hidden="{{tab!=1}}">
-        <block wx:for="{{results}}" wx:key="openid" wx:for-item="result">
+        <block wx:for="{{results.users}}" wx:key="openid" wx:for-item="result">
             <view class='user_info'>
                 <view class="avatar_wrap {{result.userInfoObj.gender==2 && 'female'}}">
                     <image class="avatar" mode="widthFix" src="{{result.userInfoObj.avatarUrl}}"></image>
@@ -23,16 +23,14 @@
                 <view class="name">{{result.userInfoObj.nickName}}</view>
                 <view class="test_times">完成{{result.scores_keys.length}}种测试</view>
             </view>
-            <block wx:for="{{result.scores_keys}}" wx:key="*this">
-
-                <!-- <view class="table_name">{{item}}</view> -->
+            <!-- <block wx:for="{{results.scores_keys}}" wx:key="*this">
                 <view class="result {{index==0&&'grey_bk'}}" wx:for="{{result.scores[item]}}" wx:key="*this">
                     <view class="table_name">{{item.scale_name}}</view>
                     <view class="time">{{item.time}}</view>
                     <view class="take_time">{{item.takeTime}}秒</view>
                     <view class="score">{{item.score}}分</view>
                 </view>
-            </block>
+            </block> -->
         </block>
     </view>
     <button class="share_btn" wx:if="{{tab==0 && !showPop}}" open-type="getUserInfo"   bindgetuserinfo="onGetUserInfo">分享</button>

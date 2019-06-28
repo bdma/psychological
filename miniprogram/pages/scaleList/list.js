@@ -26,10 +26,10 @@ Page({
       scaleParam.shareOpenId = query.openid
     }
     console.log("list onShow query,scaleParam:", query, scaleParam)
-    this.getData('dbGet', {
-      cltName: 'tables',
-      param: scaleParam
-    })
+    // this.getData('dbGet', {
+    //   cltName: 'tables',
+    //   param: scaleParam
+    // })
     this.getData('dbGet', {
       cltName: 'users',
       param: scaleParam
