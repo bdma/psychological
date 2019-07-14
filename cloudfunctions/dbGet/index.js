@@ -28,27 +28,26 @@ exports.main = async (event, context) => {
   if (cltName == "users") {
     let openIdArr = []
     openIdArr.push(OPENID)
-
+    if (param.shareOpenId && param.shareOpenId != OPENID) {
+      openIdArr.push(param.shareOpenId)
+    }
     let users = await db.collection(cltName).where(
       {
         openId: _.in(openIdArr)
       }
     ).get()
-    result.users = users
-    console.log("result openIdArr:", result.data, openIdArr)
-
-    // if (param.shareOpenId) {
-    //   let newResult = result.data.filter(ele => {
-    //     let scores = ele.scores.filter(el => {
-    //       el.shareOpenId == param.shareOpenId
-    //     })
-    //     return scores.length
-    //   })
-
-    //   console.log("newResult:", newResult)
-    // }
+    let scores = await db.collection("results").where(
+      {
+        openId: _.in(openIdArr)
+      }
+    ).get()
+    // console.log("users openIdArr:", users, users.data, openIdArr)
+    // console.log("scores openIdArr:", scores, scores.data, openIdArr)
+    result = {
+      users: users.data,
+      scores: scores.data
+    }
   }
-
   result.openid = OPENID
   console.log("result:", result)
   return result

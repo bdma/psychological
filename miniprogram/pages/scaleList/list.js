@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tab: 1,
+    tab: 0,
     tables: [],
     results: {},
     hadselectedAll: false,
@@ -22,14 +22,14 @@ Page({
       }
       scaleParam.scale_ids = arr
     }
-    if (query.openid) {
-      scaleParam.shareOpenId = query.openid
+    if (query.shareOpenId) {
+      scaleParam.shareOpenId = query.shareOpenId
     }
     console.log("list onShow query,scaleParam:", query, scaleParam)
-    // this.getData('dbGet', {
-    //   cltName: 'tables',
-    //   param: scaleParam
-    // })
+    this.getData('dbGet', {
+      cltName: 'tables',
+      param: scaleParam
+    })
     this.getData('dbGet', {
       cltName: 'users',
       param: scaleParam
@@ -44,9 +44,9 @@ Page({
       }
     })
     let selectedScaleIds = selectedScaleArr.join(),
-      path = `/page/user?openid=${this.data.openId}&scale_ids=${selectedScaleIds}`
+      path = `/page/user?shareOpenId=${this.data.openId}&scale_ids=${selectedScaleIds}`
 
-    console.log("分享 openid,selectedScaleId,path:", this.data.openId, selectedScaleIds, path)
+    console.log("分享 shareOpenId,selectedScaleId,path:", this.data.openId, selectedScaleIds, path)
     this.setData({
       showPop: false
     })
@@ -81,13 +81,14 @@ Page({
             openId: res.result.openid
           })
         } else if (data.cltName == "users") {
-          res.result.data.forEach(ele => {
-            ele.scores_keys = Object.keys(ele.scores)
-          });
-          console.log("已测列表", res.result.data) // 3
+          // res.result.data.forEach(ele => {
+          //   ele.scores_keys = Object.keys(ele.scores)
+          // });
+          res.result.scores.reverse()
+          console.log("已测列表", res.result) // 3
 
           that.setData({
-            results: res.result.data
+            results: res.result
           })
         }
 

@@ -4,7 +4,6 @@
         <view class="menu {{tab==0 && 'seleted'}}" data-tab="0" catchtap="selecttab">全部</view>
         <view class="menu {{tab==1 && 'seleted'}}" data-tab="1" catchtap="selecttab">已测</view>
     </view>
-
     <view class="item" hidden="{{tab!=0}}" catchtap="goDetail" data-id="{{item.scale_id}}" wx:for="{{tables}}" wx:key="_id">
         <view class="title">{{item.name}}</view>
         <view class="profile">{{item.profile}}</view>
@@ -13,30 +12,33 @@
             <view class="sum">{{item.questions.length}}题</view>
         </view>
     </view>
-
     <view class='result_wrap' hidden="{{tab!=1}}">
         <block wx:for="{{results.users}}" wx:key="openid" wx:for-item="result">
             <view class='user_info'>
-                <view class="avatar_wrap {{result.userInfoObj.gender==2 && 'female'}}">
-                    <image class="avatar" mode="widthFix" src="{{result.userInfoObj.avatarUrl}}"></image>
+                <view class="avatar_wrap {{result.gender==2 && 'female'}}">
+                    <image class="avatar" mode="widthFix" src="{{result.avatarUrl}}"></image>
                 </view>
-                <view class="name">{{result.userInfoObj.nickName}}</view>
-                <view class="test_times">完成{{result.scores_keys.length}}种测试</view>
+                <view class="name">{{result.nickName}}</view>
+                <view class="test_times">完成{{results.scores.length}}次测试</view>
             </view>
-            <!-- <block wx:for="{{results.scores_keys}}" wx:key="*this">
-                <view class="result {{index==0&&'grey_bk'}}" wx:for="{{result.scores[item]}}" wx:key="*this">
-                    <view class="table_name">{{item.scale_name}}</view>
-                    <view class="time">{{item.time}}</view>
-                    <view class="take_time">{{item.takeTime}}秒</view>
-                    <view class="score">{{item.score}}分</view>
-                </view>
-            </block> -->
+            <!-- <block wx:for="{{results.scores}}" wx:key="*this"> -->
+            <view class="result {{false&&'grey_bk'}}" wx:for="{{results.scores}}" wx:key="*this" wx:if="{{item.openId == result.openId}}">
+                <view class="table_name">{{item.scale_name}}</view>
+                <view class="time">{{item.time}}</view>
+                <view class="take_time">{{item.takeTime}}秒</view>
+                <view class="score">{{item.score}}分</view>
+            </view>
+            <!-- </block> -->
         </block>
     </view>
-    <button class="share_btn" wx:if="{{tab==0 && !showPop}}" open-type="getUserInfo"   bindgetuserinfo="onGetUserInfo">分享</button>
+    <button class="share_btn" wx:if="{{tab==0 && !showPop}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
+        分享
+    </button>
     <view class="share_pop" wx:if="{{showPop}}" catchtap="closePop">
-        <view class="share_content"  catchtap="stopPop">
-            <view class="select_all {{hadselectedAll&&'selected_all'}}"  catchtap="selectedAll">全选</view>
+        <view class="share_content" catchtap="stopPop">
+            <view class="select_all {{hadselectedAll&&'selected_all'}}" catchtap="selectedAll">
+                全选
+            </view>
             <scroll-view scroll-y scroll-with-animation class="options">
                 <block wx:for="{{tables}}" wx:key="_id">
                     <view class="option" data-index="{{index}}" catchtap="selectShareScore">
