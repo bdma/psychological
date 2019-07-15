@@ -67,3 +67,16 @@
 .todo{
     color: #f1f1f1
 }
+.share_btn {
+  width: 260rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  background-color: #6093EC;
+  color: #fff;
+  text-align: center;
+  position: fixed;
+  left: 245rpx;
+  bottom: 100rpx;
+  box-shadow: 0 0 10rpx #6093EC;
+}

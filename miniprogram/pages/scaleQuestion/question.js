@@ -52,7 +52,7 @@ Page({
   },
   getData(id) {
     let that = this,
-    idArr = JSON.parse("[" + id + "]")
+      idArr = JSON.parse("[" + id + "]")
     wx.cloud.callFunction({
       // 云函数名称
       name: 'dbGet',
@@ -95,7 +95,7 @@ Page({
     }
     selectArr[that.data.curQuestionIndex] = score
     console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
-    if (that.data.curQuestionIndex+1 == that.data.questions.length) {
+    if (that.data.curQuestionIndex + 1 == that.data.questions.length) {
       let endTime = (new Date()).getTime(),
         takeTime = ((endTime - startTime) / 1000).toFixed(1),
         userInfoObj = wx.getStorageSync("userInfo"),
@@ -173,6 +173,11 @@ Page({
       success(res) {
         console.log(res) // 3
       }
+    })
+  },
+  goList() {
+    wx.reLaunch({
+      url: 'pages/scaleList/list'
     })
   }
 

@@ -1,13 +1,11 @@
-<!--miniprogram/pages/question/question.wxml-->
+<!-- miniprogram/pages/question/question.wxml -->
 <view class="wrap">
-
     <view class="progress_wrap">
         <view class="progress_bar">
             <progress percent="{{percent}}" active active-mode="forwards" stroke-width="5" border-radius="10"></progress>
         </view>
         <view class="step">{{curQuestionIndex+1}}/{{questions.length}}</view>
     </view>
-
     <block wx:for="{{questions}}" wx:key="*this" wx:if="{{index==curQuestionIndex}}">
         <view class="question">{{item.title}}</view>
         <view class="aswers" wx:for="{{item.answers}}" wx:key="index">
@@ -18,22 +16,17 @@
         </view>
     </block>
     <view class="pre_question" catchtap="backPre" wx:if="{{curQuestionIndex}}">
-        <image class="pre_img" src="../../images/back.png" mode="widthFix" lazy-load="trrue">
-        </image>
+        <image class="pre_img" src="../../images/back.png" mode="widthFix" lazy-load="trrue"></image>
         上一题
     </view>
-
 </view>
 <view class="result_wrap wrap" wx:if="{{score}}">
     <view class="title">结果</view>
-    <view class="score">
-        {{score}}
-    </view>
+    <view class="score">{{score}}</view>
     <view class="title">说明</view>
-    <view class="score" wx:for="{{resultStatus}}">
-        {{item}}
-    </view>
-    <view class="todo">
-        Todo：图像显示 得分范围，分层 历次测试得分 加入信效时间，如少1分钟的不记录
-    </view>
+    <view class="score" wx:for="{{resultStatus}}">{{item}}</view>
+    <!-- <view class="todo">
+        Todo：图像显示 得分范围，分层 历次测试得分 加入信效时间，如少1分钟的不记录 -->
+    <!-- </view> -->
+    <view class="share_btn" catchtap="goList">返回</view>
 </view>
