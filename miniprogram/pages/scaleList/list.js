@@ -34,6 +34,49 @@ Page({
       cltName: 'users',
       param: scaleParam
     })
+
+
+    function downLoadImg(netUrl, storageKeyUrl) {
+      console.log("downLoadImg", netUrl)
+      wx.getImageInfo({
+        src: netUrl,    //请求的网络图片路径
+        success: function (res) {
+          // console.log("downLoadImg")
+          //请求成功后将会生成一个本地路径即res.path,然后将该路径缓存到storageKeyUrl关键字中
+          wx.setStorage({
+            key: storageKeyUrl,
+            data: res.path,
+          });
+          console.log("downLoadImg", res.path)
+        },
+        complete: function (res) {
+          // console.log("downLoadImg",res)
+        }
+      })
+    }
+
+    // downLoadImg("https://img.pyyx.com/a8cfaf0bf4b4d7067f48b847202393632880745c5c812737bc29a.jpg", "shareImg")//调用如上方法
+    // var headUrl = wx.getStorageSync("shareImg"); //下面用canvas绘制头像 
+    // const ctx = wx.createCanvasContext('myCanvas', this);
+
+    // var wxSys = wx.getSystemInfoSync();
+    // var screenScale = wxSys.screenWidth * 2 / 750;
+
+    // ctx.save(); // 保存当前ctx的状态 
+    // // 起始一条路径，或重置当前路径
+    // ctx.beginPath();
+    // ctx.arc(screenScale * 12, screenScale * 35, screenScale * 220, 0, 2000 * Math.PI, false);
+    // ctx.strokeStyle = '#e3e7e8'; 
+    // ctx.stroke(); 
+    // ctx.clip(); //裁剪上面的圆形 
+
+    // if (typeof (headUrl) != 'undefined' && headUrl != '') {
+    //   console.log("headUrl", headUrl, screenScale)
+    //   ctx.drawImage(headUrl, screenScale * 10, screenScale * 33, screenScale * 404, screenScale * 404); // 在刚刚裁剪的园上画图  
+    // }
+    // ctx.restore();
+    // // 画出来
+    // ctx.draw();
   },
 
   onShareAppMessage: function () {
@@ -44,7 +87,7 @@ Page({
       }
     })
     let selectedScaleIds = selectedScaleArr.join(),
-      path = `/page/user?shareOpenId=${this.data.openId}&scale_ids=${selectedScaleIds}`
+      path = `/page/scaleList/list?shareOpenId=${this.data.openId}&scale_ids=${selectedScaleIds}`
 
     console.log("分享 shareOpenId,selectedScaleId,path:", this.data.openId, selectedScaleIds, path)
     this.setData({
@@ -140,6 +183,12 @@ Page({
       showPop: false
     })
 
+  },
+  swiperListen(e) {
+    console.log("swiperListen", e.detail)
+    this.setData({
+      tab: e.detail.current
+    })
   }
 
 })

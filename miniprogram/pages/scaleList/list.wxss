@@ -23,7 +23,8 @@
     display: flex;
     /* font-display: row; */
     flex-wrap: nowrap;
-    width: 1500rpx;
+    width: 750rpx;
+    height: 100vh
 }
 
 .content_wrap {

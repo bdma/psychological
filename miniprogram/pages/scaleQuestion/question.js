@@ -177,7 +177,7 @@ Page({
   },
   goList() {
     wx.reLaunch({
-      url: 'pages/scaleList/list'
+      url: '/pages/scaleList/list'
     })
   }
 
