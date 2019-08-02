@@ -38,7 +38,8 @@ exports.main = async (event, context) => {
     ).get()
     let scores = await db.collection("results").where(
       {
-        openId: _.in(openIdArr)
+        openId: OPENID,
+        fromOpenId: OPENID
       }
     ).get()
     // console.log("users openIdArr:", users, users.data, openIdArr)

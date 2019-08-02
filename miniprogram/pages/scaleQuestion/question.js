@@ -30,6 +30,7 @@ Page({
   },
 
   onShow: function () {
+    
     this.setData({
       curQuestionIndex: 0
 
@@ -96,6 +97,9 @@ Page({
     selectArr[that.data.curQuestionIndex] = score
     console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
     if (that.data.curQuestionIndex + 1 == that.data.questions.length) {
+      wx.showLoading({
+        title: '正在努力计算。。。'
+      })
       let endTime = (new Date()).getTime(),
         takeTime = ((endTime - startTime) / 1000).toFixed(1),
         userInfoObj = wx.getStorageSync("userInfo"),
@@ -110,12 +114,14 @@ Page({
         },
         fail: console.error,
         success(res) {
+          wx.hideToast()
           console.log("formula:", res) // 3
           score = res.result
           that.setData({
             score,
 
           })
+          let query = wx.getStorageSync("query")
           let param = {
             scoreObj: {
               scale_id: that.data.tableId,
@@ -123,7 +129,8 @@ Page({
               selectAnswer: selectArr,
               score,
               takeTime,
-              scale_name: that.data.name
+              scale_name: that.data.name,
+              fromOpenId:  query.shareOpenId
             },
             userInfoObj
           }
@@ -134,16 +141,12 @@ Page({
       return
     }
     // 显示下一题
-    setTimeout(() => {
-      that.setData({
-        selectAnswerIndex: -1, //重置上一题选中状态
-        curQuestionIndex: that.data.curQuestionIndex + 1,
-        percent: (that.data.curQuestionIndex + 2) * 100 / that.data.questions.length
-      })
-      console.log("curQuestionIndex1 :", that.data.curQuestionIndex, that.data.questions.length)
-
-    }, 200);
-
+    that.setData({
+      selectAnswerIndex: -1, //重置上一题选中状态
+      curQuestionIndex: that.data.curQuestionIndex + 1,
+      percent: (that.data.curQuestionIndex + 2) * 100 / that.data.questions.length
+    })
+    console.log("curQuestionIndex1 :", that.data.curQuestionIndex, that.data.questions.length)
 
   },
   getTotalScore(arr) {
