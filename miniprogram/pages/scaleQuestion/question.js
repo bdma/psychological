@@ -1,6 +1,7 @@
 // miniprogram/pages/question/question.js
 let selectArr = [],
-  startTime = 0
+  startTime = 0,
+  countingResult = false
 
 Page({
 
@@ -30,7 +31,7 @@ Page({
   },
 
   onShow: function () {
-    
+
     this.setData({
       curQuestionIndex: 0
 
@@ -98,15 +99,20 @@ Page({
     console.log("curQuestionIndex :", that.data.curQuestionIndex, that.data.questions.length, selectArr)
     if (that.data.curQuestionIndex + 1 == that.data.questions.length) {
       wx.showLoading({
-        title: '正在努力计算。。。'
+        title: '努力计算。。。'
       })
+
       let endTime = (new Date()).getTime(),
         takeTime = ((endTime - startTime) / 1000).toFixed(1),
         userInfoObj = wx.getStorageSync("userInfo"),
         score = that.getTotalScore(selectArr)
 
+      if (countingResult) {
+        return
+      }
+      countingResult = true
       console.log("this.data.detail.formula_id:", that.data.detail.formula_id)
-      wx.cloud.callFunction({
+      return wx.cloud.callFunction({
         name: 'formula',
         data: {
           formula_id: that.data.detail.formula_id,
@@ -115,6 +121,7 @@ Page({
         fail: console.error,
         success(res) {
           wx.hideToast()
+          countingResult = false
           console.log("formula:", res) // 3
           score = res.result
           that.setData({
@@ -130,7 +137,7 @@ Page({
               score,
               takeTime,
               scale_name: that.data.name,
-              fromOpenId:  query.shareOpenId
+              fromOpenId: query.shareOpenId
             },
             userInfoObj
           }
@@ -138,7 +145,7 @@ Page({
           that.updateScore(param)
         }
       })
-      return
+
     }
     // 显示下一题
     that.setData({
