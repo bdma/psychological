@@ -1,4 +1,5 @@
 // miniprogram/pages/scaleList/scaleList.js
+let Query = {}
 Page({
 
   /**
@@ -11,30 +12,12 @@ Page({
     hadselectedAll: false,
     showPop: false
   },
-
+  onLoad(e) {
+    console.log("onload:", e)
+    Query = e
+  },
   onShow: function () {
-    let query = wx.getStorageSync("query"),
-      scaleParam = {}
-    if (query.scale_ids) {
-      let arr = query.scale_ids.split(",")
-      for (let i = 0, l = arr.length; i < l; i++) {
-        arr[i] = ~~arr[i]
-      }
-      scaleParam.scale_ids = arr
-    }
-    if (query.shareOpenId) {
-      scaleParam.shareOpenId = query.shareOpenId
-    }
-    console.log("list onShow query,scaleParam:", query, scaleParam)
-    this.getData('dbGet', {
-      cltName: 'tables',
-      param: scaleParam
-    })
-    this.getData('dbGet', {
-      cltName: 'users',
-      param: scaleParam
-    })
-
+    this.inite()
   },
 
   onShareAppMessage: function () {
@@ -51,8 +34,14 @@ Page({
     this.setData({
       showPop: false
     })
+    let nickName = wx.getStorageSync("userInfo").nickName
+    // nickName="马里奥看看姐姐礼哦撒空间的哈家"
+    // nickName.split("")
+    if (nickName.split("").length > 10) {
+      nickName = nickName.substring(0, 10) + "..."
+    }
     return {
-      title: '分享所选表格',
+      title: nickName + ' 分享的量表',
       path
     }
   },
@@ -62,6 +51,30 @@ Page({
     this.setData({
       showPop: true
     })
+  },
+  inite() {
+    let query = Query,
+      scaleParam = {}
+    if (query.scale_ids) {
+      let arr = query.scale_ids.split(",")
+      for (let i = 0, l = arr.length; i < l; i++) {
+        arr[i] = ~~arr[i]
+      }
+      scaleParam.scale_ids = arr
+    }
+    if (query.shareOpenId) {
+      scaleParam.shareOpenId = query.shareOpenId
+    }
+    console.log("onShow query,scaleParam:", query, scaleParam)
+    this.getData('dbGet', {
+      cltName: 'tables',
+      param: scaleParam
+    })
+    this.getData('dbGet', {
+      cltName: 'users',
+      param: scaleParam
+    })
+
   },
   getData(functionName, data = {
     cltName: 'tables',
@@ -144,9 +157,13 @@ Page({
   },
   swiperListen(e) {
     console.log("swiperListen", e.detail)
+    this.inite()
     this.setData({
       tab: e.detail.current
     })
+  },
+  handleContact(e) {
+    console.log("客服handleContact e.path,e.query:", e.path, e.query)
   }
 
 })

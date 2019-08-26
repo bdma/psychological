@@ -108,6 +108,7 @@ Page({
         score = that.getTotalScore(selectArr)
 
       if (countingResult) {
+        wx.hideToast()
         return
       }
       countingResult = true

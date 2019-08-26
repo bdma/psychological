@@ -28,18 +28,21 @@ exports.main = async (event, context) => {
   if (cltName == "users") {
     let openIdArr = []
     openIdArr.push(OPENID)
-    if (param.shareOpenId && param.shareOpenId != OPENID) {
-      openIdArr.push(param.shareOpenId)
-    }
+
+    let scores = await db.collection("results").where(_.or([
+      {
+        openId: OPENID
+      }, {
+        fromOpenId: OPENID
+      }
+    ])
+    ).get()
+    scores.data.forEach(el => {
+      openIdArr.push(el.openId)
+    })
     let users = await db.collection(cltName).where(
       {
         openId: _.in(openIdArr)
-      }
-    ).get()
-    let scores = await db.collection("results").where(
-      {
-        openId: OPENID,
-        fromOpenId: OPENID
       }
     ).get()
     // console.log("users openIdArr:", users, users.data, openIdArr)

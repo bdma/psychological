@@ -26,7 +26,7 @@
                             <image class="avatar" mode="widthFix" src="{{result.avatarUrl}}"></image>
                         </view>
                         <view class="name">{{result.nickName}}</view>
-                        <view class="test_times">完成{{results.scores.length}}次测试</view>
+                        <!-- <view class="test_times">完成{{results.scores.length}}次测试</view> -->
                     </view>
                     <!-- <block wx:for="{{results.scores}}" wx:key="*this"> -->
                     <view class="result {{false&&'grey_bk'}}" wx:for="{{results.scores}}" wx:key="*this"
@@ -43,6 +43,10 @@
     </swiper>
     <button class="share_btn" wx:if="{{tab==0 && !showPop}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
         分享
+    </button>
+    <button class="contact_wrap btnview" open-type="contact" bindcontact="handleContact">
+        <image src="../../images/cs.png" mode="aspectFit" class="contact_img"></image>
+        <view class="contact_text">客服</view>
     </button>
     <view class="share_pop" wx:if="{{showPop}}" catchtap="closePop">
         <view class="share_content" catchtap="stopPop">
