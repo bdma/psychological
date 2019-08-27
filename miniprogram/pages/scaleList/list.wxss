@@ -101,7 +101,8 @@
   width: 750rpx;
   box-sizing: border-box;
   height: 100%;
-  overflow-y: scroll;
+  overflow:auto;
+-webkit-overflow-scrolling: touch;
 }
 
 .user_info {
